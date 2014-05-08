@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+LIMIT=5
+OUTPUT="git_authors_leaderboard.log"
+
+if [ -z "$1" ] || [ -z "$2" ]
+then
+
+  echo "
+Shows an ASCII graph of the top Git authors
+    ranked according to commits-per-author.
+
+Usage:
+    `basename $0` <path> <days ago>
+
+Examples:
+    `basename $0`  ~/my-repo 7
+    `basename $0`  . 3
+"
+  exit 1
+fi
+
+pushd $1 > /dev/null
+
+test -e reports || \
+    mkdir reports
+
+CWD=`pwd`
+
+git log --date-order --since="-$2days ago" --format=%an | sort | uniq -c | \
+    sort -rn > reports/$OUTPUT
+
+echo "
+Git authors by count of commits since $2 days ago.
+"
+
+cat reports/$OUTPUT | head -n$LIMIT
+
+cat reports/$OUTPUT | head -n$LIMIT | cut -c1-12 | gnuplot -e "set yrange [1:*];
+    set tic scale 0; set ytics 5 out nomirror; set xtics nomirror; unset border;
+    set term dumb; plot '-' using 1:xticlabels(2) with impulse notitle;"
+
+popd > /dev/null

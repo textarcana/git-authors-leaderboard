@@ -7,17 +7,17 @@ Requires [gnuplot](http://www.gnuplot.info/).
 
 ## Usage
 
-    git_authors_leaderboard <path> <days ago>
+    ./git_authors_leaderboard <path> <days ago>
 
 For example:
 
-    git_authors_leaderboard ~/my-repo 7
-    git_authors_leaderboard . 3
+    ./git_authors_leaderboard ~/my-repo 7
+    ./git_authors_leaderboard . 3
 
 
 ## Example output
 
-    $ git_authors_leaderboard ~/mediawiki-core/ 3
+    $ ./git_authors_leaderboard ~/mediawiki-core/ 3
 
     Git authors by count of commits since 3 days ago.
 
