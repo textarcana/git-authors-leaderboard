@@ -31,7 +31,8 @@ git log --date-order --since="-$2days ago" --format=%an | sort | uniq -c | \
     sort -rn > reports/$OUTPUT
 
 echo "
-Git authors by count of commits since $2 days ago.
+Git authors by count of commits since $2 days ago
+             (See the logfile for the whole list):
 "
 
 cat reports/$OUTPUT | head -n$LIMIT
